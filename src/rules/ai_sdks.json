@@ -1,0 +1,35 @@
+[
+  {
+    "id": 2,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "requestDomains": [
+        "intercom.io",
+        "intercomcdn.com",
+        "intercom.com",
+        "drift.com",
+        "driftt.com",
+        "ada.support",
+        "tidio.co",
+        "tidiochat.com",
+        "voiceflow.com",
+        "chatbase.co",
+        "botpress.cloud",
+        "bpcontent.cloud"
+      ],
+      "resourceTypes": [
+        "sub_frame",
+        "stylesheet",
+        "script",
+        "image",
+        "font",
+        "xmlhttprequest",
+        "ping",
+        "media",
+        "websocket",
+        "other"
+      ]
+    }
+  }
+]

@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Faraday — Settings</title>
+  <link rel="stylesheet" href="../common/theme.css">
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <aside>
+    <div class="brand">
+      <svg viewBox="0 0 36 36" width="26" height="26" aria-hidden="true">
+        <rect x="0" y="0" width="36" height="36" rx="10" fill="oklch(0.55 0.15 250)"/>
+        <path d="M18 8 L26 11 V18 C26 23 22.5 26.5 18 28 C13.5 26.5 10 23 10 18 V11 Z" fill="none" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="M18 25 a5 5 0 0 0 5 -5" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+        <path d="M18 25 a8 8 0 0 0 8 -8" stroke="white" stroke-width="1.4" fill="none" stroke-linecap="round" opacity="0.55"/>
+        <circle cx="18" cy="25" r="1.7" fill="white"/>
+      </svg>
+      <span>Faraday</span>
+    </div>
+    <nav>
+      <button class="nav-btn" data-tab="general">General</button>
+      <button class="nav-btn" data-tab="sites">Site Permissions</button>
+      <button class="nav-btn" data-tab="activity">Activity &amp; Monitoring</button>
+    </nav>
+    <div class="aside-foot">
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">☾</button>
+      <span class="local-note">100% local · zero telemetry</span>
+    </div>
+  </aside>
+
+  <main>
+    <!-- General -->
+    <section id="tab-general" hidden>
+      <h1>General</h1>
+      <p class="sub">Control whether Faraday actively blocks AI tools and scrapers from reading your data.</p>
+
+      <div class="card master-card">
+        <div class="card-text">
+          <span class="card-title">Protection</span>
+          <span class="card-sub" id="masterStatus">Faraday is actively protecting your data.</span>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="masterToggle">
+          <span class="track"></span>
+        </label>
+      </div>
+
+      <h2>Protection layers</h2>
+      <div class="layer-list">
+        <div class="card layer">
+          <span class="dot platform big"></span>
+          <div class="card-text">
+            <span class="card-title">AI platform blocking</span>
+            <span class="card-sub">ChatGPT, Claude, Gemini, Copilot, Perplexity and ~30 more — blocked at the network level. Controlled by the master switch above.</span>
+          </div>
+        </div>
+        <div class="card layer">
+          <span class="dot sdk big"></span>
+          <div class="card-text">
+            <span class="card-title">Embedded AI assistants</span>
+            <span class="card-sub">Intercom, Drift, Ada, Tidio, Voiceflow, Chatbase, Botpress SDKs on any site.</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="sdkRuleset" data-setting>
+            <span class="track"></span>
+          </label>
+        </div>
+        <div class="card layer">
+          <span class="dot widget big"></span>
+          <div class="card-text">
+            <span class="card-title">AI widget removal</span>
+            <span class="card-sub">Sweeps pages for assistant chat bubbles, including late-injected ones.</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="widgetRemoval" data-setting>
+            <span class="track"></span>
+          </label>
+        </div>
+        <div class="card layer">
+          <span class="dot dlp big"></span>
+          <div class="card-text">
+            <span class="card-title">Sensitive-data guard</span>
+            <span class="card-sub">Catches emails, card numbers, API keys, and private keys in pastes and sends on AI sites — before they leave your machine.</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="dlpEnabled" data-setting>
+            <span class="track"></span>
+          </label>
+        </div>
+        <div class="card layer indent">
+          <div class="card-text">
+            <span class="card-title">Guard on every site</span>
+            <span class="card-sub">Extend the sensitive-data guard beyond known AI hosts to all sites.</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="dlpEverywhere" data-setting>
+            <span class="track"></span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- Site Permissions -->
+    <section id="tab-sites" hidden>
+      <h1>Site Permissions</h1>
+      <p class="sub" id="sitesSub">Every site is protected.</p>
+
+      <div class="site-list" id="siteList"></div>
+      <p class="empty-note" id="sitesEmpty" hidden>No exceptions — protection is on everywhere. Turn a site off from the popup to see it here.</p>
+
+      <h2>Custom blocked domains</h2>
+      <div class="card column">
+        <p class="card-sub">One domain per line (e.g. <code>example-ai.com</code>). Subdomains are included automatically.</p>
+        <textarea id="customBlocked" rows="5" spellcheck="false" placeholder="example-ai.com"></textarea>
+        <div class="card-actions">
+          <span class="saved-note" id="savedNote" hidden>Saved</span>
+          <button class="primary" id="saveCustom">Save</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Activity & Monitoring -->
+    <section id="tab-activity" hidden>
+      <h1>Activity &amp; Monitoring</h1>
+      <p class="sub">Every attempt by an AI tool or scraper to reach your data, blocked automatically. Recorded locally only.</p>
+
+      <div class="stat-row">
+        <div class="card stat">
+          <span class="stat-label">Blocked today</span>
+          <span class="stat-value" id="statToday">0</span>
+        </div>
+        <div class="card stat" id="riskCard">
+          <span class="stat-label">Risk level</span>
+          <span class="stat-value" id="statRisk">Low</span>
+        </div>
+        <div class="card stat">
+          <span class="stat-label">Sites monitored</span>
+          <span class="stat-value" id="statSites">0</span>
+        </div>
+      </div>
+
+      <h2>Detected AI tools &amp; scrapers</h2>
+      <div class="chip-row" id="chipRow"></div>
+      <p class="empty-note" id="chipsEmpty" hidden>Nothing detected yet.</p>
+
+      <div class="log-head">
+        <h2>Activity log</h2>
+        <button class="ghost" id="clearLog">Clear log</button>
+      </div>
+      <div class="table" id="logTable">
+        <div class="thead">
+          <div>Time</div><div>Source</div><div>Type</div><div>Site</div><div>Action</div>
+        </div>
+        <div id="logBody"></div>
+      </div>
+      <p class="empty-note" id="logEmpty" hidden>The log is empty.</p>
+      <p class="fine-print">Network entries come from the browser's blocked-request feedback (Chromium: unpacked installs; Firefox: request observation). Widget and data-guard events are always recorded. Capped at 200 entries, stored only on this device.</p>
+    </section>
+  </main>
+
+  <script src="../common/ui.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

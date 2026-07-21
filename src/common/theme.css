@@ -1,0 +1,108 @@
+/* Faraday design tokens — shared by popup and options.
+   Light is default; [data-theme="dark"] on <html> switches. */
+
+:root {
+  --bg: oklch(0.97 0.005 250);
+  --surface: oklch(0.995 0.003 250);
+  --surface-2: oklch(0.985 0.004 250);
+  --border: oklch(0.9 0.012 250);
+  --border-soft: oklch(0.93 0.01 250);
+  --text: oklch(0.22 0.02 250);
+  --text-2: oklch(0.55 0.02 250);
+  --text-3: oklch(0.3 0.02 250);
+  --accent: oklch(0.55 0.15 250);
+  --accent-soft: oklch(0.94 0.035 250);
+  --accent-text: oklch(0.4 0.13 250);
+  --amber: oklch(0.62 0.15 85);
+  --amber-soft: oklch(0.95 0.04 85);
+  --red: oklch(0.58 0.18 25);
+  --red-soft: oklch(0.95 0.04 25);
+  --red-text: oklch(0.4 0.16 25);
+  --green: oklch(0.6 0.13 145);
+  --track-off: oklch(0.85 0.01 250);
+  --track-disabled: oklch(0.92 0.008 250);
+  --thumb: oklch(0.995 0.003 250);
+  --chip-bg: oklch(0.94 0.035 250);
+  --shadow: 0 12px 32px oklch(0.2 0.02 250 / 0.18);
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+  --mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+
+:root[data-theme="dark"] {
+  --bg: oklch(0.2 0.015 250);
+  --surface: oklch(0.26 0.018 250);
+  --surface-2: oklch(0.23 0.016 250);
+  --border: oklch(0.34 0.02 250);
+  --border-soft: oklch(0.31 0.02 250);
+  --text: oklch(0.94 0.005 250);
+  --text-2: oklch(0.68 0.01 250);
+  --text-3: oklch(0.85 0.01 250);
+  --accent-soft: oklch(0.34 0.07 250);
+  --accent-text: oklch(0.82 0.08 250);
+  --amber-soft: oklch(0.33 0.06 85);
+  --red-soft: oklch(0.31 0.06 25);
+  --red-text: oklch(0.8 0.09 25);
+  --track-off: oklch(0.4 0.02 250);
+  --track-disabled: oklch(0.3 0.015 250);
+  --chip-bg: oklch(0.34 0.07 250);
+  --shadow: 0 12px 32px oklch(0 0 0 / 0.45);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+::selection { background: oklch(0.55 0.15 250 / 0.25); }
+
+/* Toggle switch (44x24, from the Toggle comp) */
+.switch { position: relative; width: 44px; height: 24px; flex-shrink: 0; display: inline-block; }
+.switch input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+.switch .track {
+  position: absolute; inset: 0; border-radius: 999px;
+  background: var(--track-off);
+  transition: background 0.18s ease;
+  pointer-events: none;
+}
+.switch .track::after {
+  content: ""; position: absolute;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--thumb);
+  top: 3px; left: 3px;
+  transition: left 0.18s ease;
+  box-shadow: 0 1px 3px oklch(0.2 0.02 250 / 0.3);
+}
+.switch input:checked + .track { background: var(--accent); }
+.switch input:checked + .track::after { left: 23px; }
+.switch input:disabled { cursor: not-allowed; }
+.switch input:disabled + .track { background: var(--track-disabled); opacity: 0.6; }
+
+/* Kind dots used in activity lists */
+.dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; display: inline-block; }
+.dot.platform { background: var(--accent); }
+.dot.sdk { background: var(--amber); }
+.dot.custom { background: var(--text-2); }
+.dot.widget { background: var(--green); }
+.dot.dlp { background: var(--red); }
+
+/* Risk chip */
+.risk-chip {
+  font-size: 12px; padding: 3px 9px; border-radius: 999px; font-weight: 600;
+}
+.risk-chip.low { background: var(--accent-soft); color: var(--accent-text); }
+.risk-chip.medium { background: var(--amber-soft); color: var(--amber); }
+.risk-chip.high { background: var(--red-soft); color: var(--red); }
+
+/* Theme toggle button */
+.theme-btn {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; cursor: pointer; border: none;
+  background: var(--surface-2); color: var(--text-2);
+  transition: background 0.18s ease;
+}
+.theme-btn:hover { background: var(--border-soft); }

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Faraday</title>
+  <link rel="stylesheet" href="../common/theme.css">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <svg class="logo" viewBox="0 0 36 36" width="28" height="28" aria-hidden="true">
+      <rect x="0" y="0" width="36" height="36" rx="10" fill="oklch(0.55 0.15 250)"/>
+      <path d="M18 8 L26 11 V18 C26 23 22.5 26.5 18 28 C13.5 26.5 10 23 10 18 V11 Z" fill="none" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M18 25 a5 5 0 0 0 5 -5" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <path d="M18 25 a8 8 0 0 0 8 -8" stroke="white" stroke-width="1.4" fill="none" stroke-linecap="round" opacity="0.55"/>
+      <circle cx="18" cy="25" r="1.7" fill="white"/>
+    </svg>
+    <h1>Faraday</h1>
+    <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">☾</button>
+  </header>
+
+  <div class="row bordered">
+    <div class="row-text">
+      <span class="row-title">Protection</span>
+      <span class="row-sub">Master switch, all sites</span>
+    </div>
+    <label class="switch">
+      <input type="checkbox" id="masterToggle">
+      <span class="track"></span>
+    </label>
+  </div>
+
+  <div class="banner on" id="statusBanner">Faraday is actively protecting your data.</div>
+
+  <div class="row">
+    <div class="row-text">
+      <span class="row-title">This site</span>
+      <span class="row-sub" id="siteSub">—</span>
+    </div>
+    <label class="switch">
+      <input type="checkbox" id="siteToggle">
+      <span class="track"></span>
+    </label>
+  </div>
+
+  <div class="row focus-row">
+    <div class="row-text">
+      <span class="row-title">Focus session</span>
+      <span class="row-sub" id="focusSub">Wipe exceptions and lock them until the timer ends</span>
+    </div>
+    <div class="focus-actions" id="focusActions">
+      <button data-focus="30">30m</button>
+      <button data-focus="60">1h</button>
+      <button data-focus="120">2h</button>
+    </div>
+    <span class="focus-timer" id="focusTimer" hidden>00:00</span>
+  </div>
+
+  <div class="monitor-card">
+    <button class="monitor-preview" id="monitorPreview">
+      <span class="dot" id="riskDot"></span>
+      <span id="monitorSummary">0 attempts blocked today</span>
+      <span class="chevron" id="monitorChevron">›</span>
+    </button>
+    <div class="monitor-detail" id="monitorDetail" hidden>
+      <div class="monitor-meta">
+        <span class="risk-chip low" id="riskChip">Low risk</span>
+        <span class="monitor-across" id="monitorAcross">across 0 monitored sites</span>
+      </div>
+      <ul id="monitorList"></ul>
+      <p class="monitor-empty" id="monitorEmpty" hidden>Nothing recorded yet. Entries appear when a site reaches for an AI backend, a widget is removed, or the data guard fires.</p>
+      <button class="link-btn" id="viewAll">View full activity →</button>
+    </div>
+  </div>
+
+  <button class="link-btn footer-link" id="openSettings">Manage all settings</button>
+
+  <script src="../common/ui.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
