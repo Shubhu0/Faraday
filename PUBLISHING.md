@@ -8,7 +8,7 @@ powershell -Command "Compress-Archive -Path dist/chromium/* -DestinationPath sto
 powershell -Command "Compress-Archive -Path dist/firefox/*  -DestinationPath store/faraday-firefox-0.2.0.zip  -Force"
 ```
 
-Assets are ready in `store/`: screenshots (1280×800), listing copy and permission justifications (`store/listing.md`), privacy policy (`PRIVACY.md` — use its GitHub URL as the "privacy policy URL" in every form).
+Assets are ready in `store/`: screenshots (1280×800), listing copy and permission justifications (`store/listing.md`), privacy policy (privacy policy URL for store forms: https://github.com/Shubhu0/Faraday/blob/main/PRIVACY.md).
 
 Version bumps: edit `version` in all three `platform/*/manifest.json` (keep in lockstep), rebuild, re-zip, upload.
 
